@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get 'login', to: 'sessions#new'
   post 'login', to: 'sessions#create'
   delete 'logout', to: 'sessions#destroy'
+
   
   get 'signup', to: 'users#new'
   resources :users, only: [:show, :new, :create]
@@ -13,4 +14,5 @@ Rails.application.routes.draw do
   resources :ownerships, only: [:create, :destroy]
   
   get 'rankings/want', to: 'rankings#want'
+  get 'rankings/have', to: 'rankings#have'
 end

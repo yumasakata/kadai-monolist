@@ -6,12 +6,12 @@ class User < ApplicationRecord
                     uniqueness: { case_sensitive: false }
   has_secure_password
   
-  has_many:ownerships
-  has_many:items, through: :ownerships
+  has_many :ownerships
+  has_many :items, through: :ownerships
   has_many :wants
   has_many :want_items, through: :wants, source: :item
-  has_many :haves, class_name:'Have'
-  has_many :have_items, through: :haves, source: :item
+  has_many :haves,class_name:'Have'
+  has_many :have_items, through: :haves,source: :item
   
   def want(item)
     self.wants.find_or_create_by(item_id: item.id)
@@ -27,15 +27,15 @@ class User < ApplicationRecord
   end
   
   def have(item)
-    self.want.find_or_create_by(item_id: item.id)
+    self.have.find_or_create_by(item_id: item.id)
   end  
   
-  def unhave(item)
-    have = self.want.find_or_create_by(item_id: item.id)
+  def unhaveit(item)
+    have = self.have.find_by(item_id: item.id)
     have.destroy if have
   end
   
-  def have(item)
-    self.want_items.include?(item)
+  def have?(item)
+    self.have_items.include?(item)
   end
 end
