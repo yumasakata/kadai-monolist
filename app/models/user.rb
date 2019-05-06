@@ -10,8 +10,8 @@ class User < ApplicationRecord
   has_many :items, through: :ownerships
   has_many :wants
   has_many :want_items, through: :wants, source: :item
-  has_many :haves,class_name:'Have'
-  has_many :have_items, through: :haves,source: :item
+  has_many :haves, class_name:'Have'
+  has_many :have_items, through: :haves, source: :item
   
   def want(item)
     self.wants.find_or_create_by(item_id: item.id)
@@ -28,9 +28,9 @@ class User < ApplicationRecord
   
   def have(item)
     self.have.find_or_create_by(item_id: item.id)
-  end  
+  end 
   
-  def unhaveit(item)
+  def unhave(item)
     have = self.have.find_by(item_id: item.id)
     have.destroy if have
   end
